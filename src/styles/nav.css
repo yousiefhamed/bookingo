@@ -1,0 +1,112 @@
+.navbar {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow-y: auto;
+  background-color: var(--light-gray);
+  padding: 20px 0;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  flex-direction: column;
+  gap: 60px;
+}
+
+@media (max-width: 768px) {
+  .navbar {
+    height: 100px;
+    width: 100%;
+    position: relative;
+    top: 0;
+    padding: 0 20px;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 20px;
+    overflow-y: visible;
+    z-index: 10;
+  }
+}
+
+.logo-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.logo {
+  width: 70px;
+  height: 70px;
+  border: var(--teal-green) 3px solid;
+  border-radius: 50%;
+  padding: 2px;
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.nav-links li a {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--navy-blue);
+  color: var(--white);
+  padding: 17px;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  font-size: 25px;
+  box-shadow: var(--box-shadow);
+}
+
+.nav-links li a:hover {
+  opacity: 80%;
+}
+
+.menu-button {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .menu-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .menu-button button {
+    background-color: var(--navy-blue);
+    color: var(--white);
+    padding: 10px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    font-size: 22px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .menu-button button:hover {
+    opacity: 80%;
+  }
+
+  .nav-links {
+    display: none;
+    backdrop-filter: blur(10px);
+    border-bottom-left-radius: 20px;
+  }
+  .nav-links.active {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 100px;
+    right: 0;
+    width: auto;
+    padding: 20px;
+    gap: 20px;
+  }
+}

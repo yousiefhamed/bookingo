@@ -1,0 +1,61 @@
+footer {
+  background-color: var(--light-gray);
+  color: var(--dark-gray);
+  text-align: center;
+  width: 100%;
+  padding: 15px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+@media (max-width: 768px) {
+  footer {
+    flex-direction: column;
+  }
+}
+
+footer .brand {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+footer img {
+  width: 30px;
+}
+
+footer p {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+footer .social {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+footer .social a {
+  font-size: 16px;
+  background-color: var(--teal-green);
+  color: var(--white);
+  width: 30px;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: var(--box-shadow);
+  border-radius: 50%;
+  padding: 5px;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+footer .social a:hover {
+  opacity: 0.8;
+}
