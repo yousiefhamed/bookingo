@@ -11,6 +11,8 @@ export const AppProvider = ({ children }) => {
   const [error, setError] = useState(null);
 
   const [books, setBooks] = useState([]);
+  const [errorBooks, setErrorBooks] = useState(null);
+
   const [cart, setCart] = useState([]);
   const [wishlist, setWishlist] = useState([]);
 
@@ -34,7 +36,7 @@ export const AppProvider = ({ children }) => {
         const response = await getBooks();
         setBooks(response);
       } catch (error) {
-        setError(error);
+        setErrorBooks(error);
       }
     };
     fetchBooks();
@@ -50,6 +52,7 @@ export const AppProvider = ({ children }) => {
         error,
         setError,
         books,
+        errorBooks,
         cart,
         setCart,
         wishlist,

@@ -19,7 +19,7 @@ header {
 
 .search-container input[type="text"] {
   width: 100%;
-  padding: 10px;
+  padding: 10px 80px 10px 15px;
   border: 1px solid var(--dark-charcoal);
   border-radius: 30px;
   font-size: 16px;

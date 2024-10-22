@@ -8,12 +8,17 @@
 }
 
 .book {
-  width: 160px;
+  background-color: var(--white);
+  box-shadow: var(--box-shadow);
+  width: 250px;
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
+  border-radius: 10px;
   transition: var(--transition);
+  padding: 10px;
+  border: 1px solid var(--light-gray);
 }
 
 .book:hover {
@@ -56,4 +61,18 @@
   text-overflow: ellipsis;
   white-space: nowrap;
   width: 100%;
+}
+
+.book .book-price span {
+  color: var(--navy-blue);
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.book .book-actions {
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  margin-top: 10px;
 }

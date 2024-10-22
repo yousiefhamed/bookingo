@@ -10,20 +10,18 @@
   align-items: center;
   flex-direction: column;
   gap: 60px;
+  z-index: 200;
 }
 
 @media (max-width: 768px) {
   .navbar {
     height: 100px;
     width: 100%;
-    position: relative;
-    top: 0;
     padding: 0 20px;
     flex-direction: row;
     justify-content: space-between;
     gap: 20px;
     overflow-y: visible;
-    z-index: 10;
   }
 }
 

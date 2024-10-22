@@ -5,16 +5,18 @@ import Filter from "../components/Filter";
 import { useFilterContext } from "../context/FilterContext";
 
 const AllBooks = () => {
-  const { filteredBooks } = useFilterContext();
+  const { filteredBooks, errorBooks } = useFilterContext();
 
   return (
     <section className="popular-books">
       <Headeing text="All Books" />
       <Filter />
       <div className="books">
-        {filteredBooks.map((book) => (
-          <Book key={book.id} book={book} />
-        ))}
+        {errorBooks ? (
+          <p>{`${errorBooks}`}</p>
+        ) : (
+          filteredBooks.map((book) => <Book key={book._id} book={book} />)
+        )}
       </div>
     </section>
   );

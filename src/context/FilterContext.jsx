@@ -11,9 +11,9 @@ export const FilterProvider = ({ children }) => {
   const [sort, setSort] = useState("title");
   const [sortDir, setSortDir] = useState("asc");
 
-  const [filteredBooks, setFilteredBooks] = useState([]);
+  const { books, errorBooks } = useAppContext();
 
-  const { books } = useAppContext();
+  const [filteredBooks, setFilteredBooks] = useState(books);
 
   useEffect(() => {
     setFilteredBooks(books);
@@ -85,6 +85,7 @@ export const FilterProvider = ({ children }) => {
         sortDir,
         setSortDir,
         filteredBooks,
+        errorBooks,
       }}
     >
       {children}

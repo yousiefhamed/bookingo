@@ -52,56 +52,28 @@ export const logout = async () => {
 export const getBooks = async () => {
   try {
     const response = await axios.get(
-      `${process.env.REACT_APP_BACKEND_API_URL}/products`
+      `${process.env.REACT_APP_BACKEND_API_URL}/products/`
     );
-    console.log(response);
-    if (response?.data?.books) {
-      return response.data.books;
+    if (response?.data) {
+      return response.data;
     }
+
     // throw new Error("Something went wrong");
   } catch (error) {
-    // throw new Error(error.message);
-    return [
-      {
-        id: 1,
-        title: "Book 1",
-        author: "Author 1",
-        genre: "Fiction",
-        rating: 4.5,
-        price: 19.99,
-      },
-      {
-        id: 2,
-        title: "Book 2",
-        author: "Author 2",
-        genre: "Mystery",
-        rating: 4.2,
-        price: 14.99,
-      },
-      {
-        id: 3,
-        title: "Book 3",
-        author: "Author 3",
-        genre: "Science Fiction",
-        rating: 4.8,
-        price: 24.99,
-      },
-      {
-        id: 4,
-        title: "Book 4",
-        author: "Author 4",
-        genre: "Fantasy",
-        rating: 4.0,
-        price: 12.99,
-      },
-      {
-        id: 5,
-        title: "Book 5",
-        author: "Author 5",
-        genre: "Romance",
-        rating: 4.7,
-        price: 17.99,
-      },
-    ];
+    throw new Error(error.message);
+  }
+};
+
+export const getBook = async (id) => {
+  try {
+    const response = await axios.get(
+      `${process.env.REACT_APP_BACKEND_API_URL}/products/${id}`
+    );
+    if (response?.data) {
+      return response.data;
+    }
+    throw new Error("Something went wrong");
+  } catch (error) {
+    throw new Error(error.message);
   }
 };

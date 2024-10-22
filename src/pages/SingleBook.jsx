@@ -1,45 +1,28 @@
-// import { useParams } from "react-router-dom";
-
+import { useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
 import BookData from "../components/BookData";
-
-import test from "./../assets/books/test.png";
+import { getBook } from "../hooks/useApi";
 
 const SingleBook = () => {
-  // const params = useParams();
-  // const bookId = params.id;
+  const params = useParams();
+  const bookId = params.id;
 
-  const book = {
-    id: "1",
-    title: "The Great Gatsby",
-    author: "F. Scott Fitzgerald",
-    description:
-      "A novel about the American Dream and the excesses of the 1920s.",
-    coverImage: test,
-    price: 12.99,
-    rating: 4.5,
-    genre: "Fiction",
-    availability: true,
-    reviews: [
-      {
-        id: "1",
-        user: "John Doe",
-        rating: 4,
-        comment: "A classic that never gets old.",
-      },
-      {
-        id: "2",
-        user: "Jane Smith",
-        rating: 5,
-        comment: "A must-read for anyone interested in the 1",
-      },
-    ],
-  };
+  const [book, setBook] = useState({});
+  const [error, setError] = useState("");
 
-  return (
-    <>
-      <BookData book={book} />
-    </>
-  );
+  useEffect(() => {
+    const fetchBook = async () => {
+      try {
+        const response = await getBook(bookId);
+        setBook(response);
+      } catch (error) {
+        setError("something went wrong");
+      }
+    };
+    fetchBook();
+  }, [bookId]);
+
+  return <>{error ? <p>{`Error: ${error}`}</p> : <BookData book={book} />}</>;
 };
 
 export default SingleBook;

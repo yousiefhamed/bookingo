@@ -5,26 +5,28 @@ import AddToWishlist from "./utils/AddToWishlist";
 import "./../styles/book-data.css";
 import RecommendedBooks from "./RecommendedBooks";
 import { Link } from "react-router-dom";
+import { useAppContext } from "../context/AppContext";
 
 const BookData = ({ book }) => {
   const {
+    coverImage,
     title,
     author,
     description,
-    coverImage,
     price,
     rating,
     genre,
-    availability,
-    reviews,
+    stock,
   } = book;
+
+  const { books } = useAppContext();
 
   return (
     <>
       <div className="book-data-container">
         <div className="book-cover">
           <img src={coverImage} alt={`${title} cover`} />
-          {availability === false ? <p>Out of Stock</p> : ""}
+          {stock === false ? <p>Out of Stock</p> : ""}
         </div>
         <div className="book-details">
           <h1>{title}</h1>
@@ -38,28 +40,12 @@ const BookData = ({ book }) => {
           <p className="price">${price}</p>
           <p className="gray bottom">{description}</p>
           <div className="book-details-actions">
-            <AddToCartBtn handleClick={() => {}} disabled={!availability} />
+            <AddToCartBtn handleClick={() => {}} disabled={!stock} />
             <AddToWishlist handleClick={() => {}} />
           </div>
         </div>
       </div>
-      <RecommendedBooks />
-      {reviews.length > 0 && (
-        <div className="book-details-reviews">
-          <h2>Reviews</h2>
-          <div className="book-details-reviews-list">
-            {reviews.map((review) => (
-              <div className="book-details-reviews-list-item" key={review.id}>
-                <div className="book-details-reviews-list-item-user">
-                  <p>{review.user}</p>
-                  <Rating overallRating={review.rating} />
-                </div>
-                <p className="gray">{review.comment}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      )}
+      <RecommendedBooks books={books} />
     </>
   );
 };

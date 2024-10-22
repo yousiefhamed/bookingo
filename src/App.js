@@ -1,7 +1,6 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import "./App.css";
-
+import { useLocation } from "react-router-dom";
 import { AppProvider } from "./context/AppContext";
 import ProtectedRoutes from "./components/auth/ProtectedRoutes";
 import IsLoggedIn from "./components/auth/IsLoggedIn";
@@ -18,11 +17,26 @@ import Header from "./components/Header";
 import Footer from "./components/Footer";
 import { FilterProvider } from "./context/FilterContext";
 
+import "./App.css";
+
+const ScrollToTop = () => {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    document.getElementById("topPage").scrollIntoView({
+      behavior: "smooth",
+    });
+  }, [pathname]);
+
+  return <div id="topPage"></div>;
+};
+
 function App() {
   return (
     <AppProvider>
       <FilterProvider>
         <Router>
+          <ScrollToTop />
           <div className="App">
             <div className="grid-container">
               <Nav />
