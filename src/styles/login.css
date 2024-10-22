@@ -1,15 +1,47 @@
 .login-container {
+  width: 100%;
   max-width: 400px;
   margin: 0 auto;
-  padding: 20px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  background-color: #f9f9f9;
+  padding: 20px 20px 40px;
+  border-radius: 12px;
+  border: 1px solid var(--light-gray);
+  box-shadow: var(--box-shadow);
+  position: relative;
+  overflow: hidden;
+}
+
+.login-container::after,
+.login-container::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform: translate(-50%, -50%);
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  box-shadow: 0 0 10px var(--navy-blue);
+  background-color: var(--teal-green);
+  opacity: 0.5;
+  backdrop-filter: blur(100px);
+  z-index: -1;
+}
+
+.login-container::before {
+  top: auto;
+  bottom: 0;
+  left: auto;
+  right: 0;
+  transform: translate(50%, 50%);
+  background-color: var(--navy-blue);
+  opacity: 1;
+  width: 150px;
+  height: 150px;
 }
 
 .login-container h2 {
   text-align: center;
-  color: #333;
+  color: var(--navy-blue);
 }
 
 .login-container form {
@@ -24,26 +56,51 @@
 .login-container label {
   display: block;
   margin-bottom: 5px;
-  color: #666;
+  font-weight: 500;
+  font-size: 16px;
+  color: var(--navy-blue);
 }
 
 .login-container input {
   width: 100%;
-  padding: 8px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
+  padding: 10px;
+  border: 1px solid var(--dark-charcoal);
+  border-radius: 30px;
+  font-size: 16px;
+  outline: none;
+  background-color: var(--white);
+  box-shadow: var(--box-shadow);
+  height: 40px;
+}
+
+.login-container input:focus {
+  border-color: var(--teal-green);
+  box-shadow: 0 0 5px var(--teal-green);
 }
 
 .login-container button {
   padding: 10px;
-  background-color: #28a745;
-  color: white;
+  background-color: var(--teal-green);
+  color: var(--white);
   border: none;
-  border-radius: 4px;
+  border-radius: 30px;
   cursor: pointer;
-  font-size: 16px;
+  font-size: 18px;
+  font-weight: 700;
+  margin-top: 30px;
+  width: 100%;
+  max-width: 50%;
+  margin-inline: auto;
+  box-shadow: var(--box-shadow);
+  transition: var(--transition);
 }
 
 .login-container button:hover {
-  background-color: #218838;
+  opacity: 0.8;
+  transform: scale(1.05);
+}
+
+.login-container button:active {
+  opacity: 0.6;
+  transform: scale(0.95);
 }

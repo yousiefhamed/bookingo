@@ -3,15 +3,25 @@ import Rating from "./utils/Rating";
 import { FaSackDollar, FaSortDown, FaStar } from "react-icons/fa6";
 import { MdCategory } from "react-icons/md";
 import { FaSortAmountDown } from "react-icons/fa";
+import { useFilterContext } from "../context/FilterContext";
+import { TbTrashXFilled } from "react-icons/tb";
 import "./../styles/filter.css";
-import { useNavigate } from "react-router-dom";
 
 const Filter = () => {
-  const [genres, setGenres] = useState([]);
-  const [rating, setRating] = useState([]);
-  const [prices, setPrices] = useState([0, 100]);
-  const [sort, setSort] = useState("title");
-  const [sortDir, setSortDir] = useState("asc");
+  const [isAnyFilterOpen, setIsAnyFilterOpen] = useState(false);
+
+  const {
+    genres,
+    setGenres,
+    rating,
+    setRating,
+    prices,
+    setPrices,
+    sort,
+    setSort,
+    sortDir,
+    setSortDir,
+  } = useFilterContext();
 
   const [genresarr] = useState([
     "Fiction",
@@ -77,8 +87,13 @@ const Filter = () => {
   const [showPrice, setShowPrice] = useState(false);
   const [showSort, setShowSort] = useState(false);
 
-  const [filterParams, setFilterParams] = useState("");
-  const navigate = useNavigate();
+  const handleClearFilters = () => {
+    setGenres(["all"]);
+    setRating(["all"]);
+    setPrices([0, 100]);
+    setSort("title");
+    setSortDir("asc");
+  };
 
   const handleGenreChange = (selectedGenre) => {
     setGenres((prevGenre) =>
@@ -99,13 +114,24 @@ const Filter = () => {
   };
 
   useEffect(() => {
-    setFilterParams(
-      `genres=${genres.join(",")}&rating=${rating.join(
-        ","
-      )}&price=${prices.join(",")}&sort=${sort}&sortDir=${sortDir}`
-    );
-    navigate(`/books?${filterParams}`);
-  }, [filterParams, genres, navigate, prices, rating, sort, sortDir]);
+    const handleClickOutside = (event) => {
+      if (
+        isAnyFilterOpen &&
+        !event.target.closest(".filter .filter-dropdown")
+      ) {
+        setShowFilter(false);
+        setShowRating(false);
+        setShowPrice(false);
+        setShowSort(false);
+        setIsAnyFilterOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [isAnyFilterOpen]);
 
   return (
     <div className="filter">
@@ -115,7 +141,10 @@ const Filter = () => {
           <h2>Genre</h2>
           <button
             className={`filter-button ${showFilter ? "active" : ""}`}
-            onClick={() => setShowFilter(!showFilter)}
+            onClick={() => {
+              setShowFilter(!showFilter);
+              setIsAnyFilterOpen(!showFilter);
+            }}
           >
             <FaSortDown />
           </button>
@@ -135,7 +164,10 @@ const Filter = () => {
           <h2>Rating</h2>
           <button
             className={`filter-button ${showRating ? "active" : ""}`}
-            onClick={() => setShowRating(!showRating)}
+            onClick={() => {
+              setShowRating(!showRating);
+              setIsAnyFilterOpen(!showRating);
+            }}
           >
             <FaSortDown />
           </button>
@@ -156,7 +188,10 @@ const Filter = () => {
           <h2>Price</h2>
           <button
             className={`filter-button ${showPrice ? "active" : ""}`}
-            onClick={() => setShowPrice(!showPrice)}
+            onClick={() => {
+              setShowPrice(!showPrice);
+              setIsAnyFilterOpen(!showPrice);
+            }}
           >
             <FaSortDown />
           </button>
@@ -165,12 +200,16 @@ const Filter = () => {
               <label>
                 <span>min: </span>
                 <input
-                  type="range"
+                  type="number"
                   min="0"
                   max="100"
+                  step={10}
                   value={prices[0]}
                   onChange={(e) =>
-                    setPrices((prev) => [Number(e.target.value), prev[1]])
+                    setPrices((prev) => [
+                      Number(Math.min(e.target.value, prices[1] - 1)),
+                      prev[1],
+                    ])
                   }
                   className="price-range"
                 />
@@ -178,32 +217,32 @@ const Filter = () => {
               <label>
                 <span>max: </span>
                 <input
-                  type="range"
+                  type="number"
                   min="0"
                   max="100"
+                  step={10}
                   value={prices[1]}
                   onChange={(e) =>
-                    setPrices((prev) => [prev[0], Number(e.target.value)])
+                    setPrices((prev) => [
+                      prev[0],
+                      Number(Math.min(e.target.value, 100)),
+                    ])
                   }
                   className="price-range"
                 />
               </label>
-              <div className="border"></div>
-              <div className="price-labels">
-                <span>min: ${prices[0]}</span>
-                <span>max: ${prices[1]}</span>
-              </div>
             </div>
           </div>
         </div>
-      </div>
-      <div className="filter-container shrink">
-        <div className="filter-item">
+        <div className="filter-item grow">
           <FaSortAmountDown />
           <h2>Sort By</h2>
           <button
             className="filter-button"
-            onClick={() => setShowSort(!showSort)}
+            onClick={() => {
+              setShowSort(!showSort);
+              setIsAnyFilterOpen(!showSort);
+            }}
           >
             <FaSortDown />
           </button>
@@ -231,6 +270,16 @@ const Filter = () => {
           </div>
         </div>
       </div>
+      {(genres.length > 1 ||
+        rating.length > 1 ||
+        prices[0] !== 0 ||
+        prices[1] !== 100 ||
+        sort !== "title" ||
+        sortDir !== "asc") && (
+        <button className="clear-filters" onClick={handleClearFilters}>
+          <TbTrashXFilled /> Clear Filters
+        </button>
+      )}
     </div>
   );
 };

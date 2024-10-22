@@ -1,9 +1,9 @@
 import { useState } from "react";
-import axios from "axios";
 
-import "./../styles/signup.css";
+import "./../styles/login.css";
 import { useNavigate } from "react-router-dom";
 import { useAppContext } from "../context/AppContext";
+import { register } from "../hooks/useApi";
 
 const Signup = () => {
   const navigate = useNavigate();
@@ -26,21 +26,21 @@ const Signup = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post(
-        `http://localhost:5000/api/users/register`,
-        formData
-      );
-      localStorage.setItem("token", response.data.token);
-      localStorage.setItem("userId", response.data.user._id);
-      setLoggedIn(true);
-      navigate("/");
+      const response = await register(formData);
+      if (response) {
+        setError(null);
+        setLoggedIn(true);
+        navigate("/");
+      }
     } catch (error) {
-      setError("Registration failed:", error.response.data.message);
+      setError(`Registration failed: ${error}`);
+      setLoggedIn(false);
+      navigate("/signup");
     }
   };
 
   return (
-    <div className="signup-container">
+    <div className="login-container">
       <h2>Sign Up</h2>
       <form onSubmit={handleSubmit}>
         <div>
@@ -49,6 +49,7 @@ const Signup = () => {
             type="text"
             id="username"
             name="name"
+            placeholder="Enter your name..."
             value={formData.name}
             onChange={handleChange}
             required
@@ -60,6 +61,7 @@ const Signup = () => {
             type="email"
             id="email"
             name="email"
+            placeholder="Enter your email..."
             value={formData.email}
             onChange={handleChange}
             required
@@ -71,6 +73,7 @@ const Signup = () => {
             type="password"
             id="password"
             name="password"
+            placeholder="Enter your password..."
             value={formData.password}
             onChange={handleChange}
             required

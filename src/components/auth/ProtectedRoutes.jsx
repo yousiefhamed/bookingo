@@ -1,22 +1,29 @@
-import { Navigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useAppContext } from "../../context/AppContext";
+import LoadingModal from "./../utils/LoadingModal"; // Assuming we'll create this component
+import { useEffect } from "react";
 
 const ProtectedRoutes = ({ children }) => {
-  const { user, loading, error } = useAppContext();
+  const { user, loading, error, setError } = useAppContext();
+  const navigate = useNavigate();
 
-  if (!user && !loading && !error) {
-    return <Navigate to="/login" />;
-  }
-
-  if (loading) {
-    return <div>Loading...</div>;
-  }
+  useEffect(() => {
+    if (!user && !loading && !error) {
+      navigate("/login");
+      return;
+    }
+  }, [error, loading, navigate, user]);
 
   if (error) {
-    return <div>Error: {error}</div>;
+    setError(null);
+    return <div>Error: {`${error}`}</div>;
   }
 
-  return children;
+  if (user) {
+    return <>{children}</>;
+  }
+
+  return <LoadingModal />;
 };
 
 export default ProtectedRoutes;

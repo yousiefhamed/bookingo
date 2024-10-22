@@ -1,4 +1,5 @@
 import { createContext, useContext, useEffect, useState } from "react";
+import { getBooks } from "../hooks/useApi";
 
 export const AppContext = createContext();
 
@@ -9,7 +10,7 @@ export const AppProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  const [books] = useState([]);
+  const [books, setBooks] = useState([]);
   const [cart, setCart] = useState([]);
   const [wishlist, setWishlist] = useState([]);
 
@@ -26,6 +27,18 @@ export const AppProvider = ({ children }) => {
     setLoading(false);
     return;
   }, [loggedIn]);
+
+  useEffect(() => {
+    const fetchBooks = async () => {
+      try {
+        const response = await getBooks();
+        setBooks(response);
+      } catch (error) {
+        setError(error);
+      }
+    };
+    fetchBooks();
+  }, []);
 
   return (
     <AppContext.Provider

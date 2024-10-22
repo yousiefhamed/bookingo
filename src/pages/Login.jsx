@@ -1,8 +1,9 @@
 import React, { useState } from "react";
-import axios from "axios";
-import "./../styles/login.css";
 import { useAppContext } from "../context/AppContext";
 import { useNavigate } from "react-router-dom";
+import { login } from "../hooks/useApi";
+
+import "./../styles/login.css";
 
 const Login = () => {
   const { setLoggedIn, setError } = useAppContext();
@@ -24,16 +25,16 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post(
-        "http://localhost:5000/api/users/login",
-        formData
-      );
-      localStorage.setItem("token", response.data.token);
-      localStorage.setItem("userId", response.data.user._id);
-      setLoggedIn(true);
-      navigate("/");
+      const response = await login(formData);
+      if (response) {
+        setError(null);
+        setLoggedIn(true);
+        navigate("/");
+      }
     } catch (error) {
-      setError("Registration failed:", error.response.data.message);
+      setError(`Login failed: ${error}`);
+      setLoggedIn(false);
+      navigate("/login");
     }
   };
 
@@ -47,6 +48,7 @@ const Login = () => {
             type="email"
             id="email"
             name="email"
+            placeholder="Enter your email..."
             value={formData.email}
             onChange={handleChange}
             required
@@ -58,6 +60,7 @@ const Login = () => {
             type="password"
             id="password"
             name="password"
+            placeholder="Enter your password..."
             value={formData.password}
             onChange={handleChange}
             required

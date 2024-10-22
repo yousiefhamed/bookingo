@@ -26,6 +26,7 @@
   border-radius: 10px;
   object-fit: cover;
   margin-bottom: 15px;
+  background-color: #ccc;
 }
 
 .book h3 {

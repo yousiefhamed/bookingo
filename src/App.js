@@ -16,59 +16,62 @@ import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
+import { FilterProvider } from "./context/FilterContext";
 
 function App() {
   return (
     <AppProvider>
-      <Router>
-        <div className="App">
-          <div className="grid-container">
-            <Nav />
-            <main>
-              <Header />
-              <Routes>
-                <Route path="/" element={<Home />} />
-                <Route path="/books" element={<AllBooks />} />
-                <Route path="/book/:id" element={<SingleBook />} />
-                <Route path="/author/:id" element={<Author />} />
-                <Route
-                  path="/account"
-                  element={
-                    <ProtectedRoutes>
-                      <User />
-                    </ProtectedRoutes>
-                  }
-                />
-                <Route
-                  path="/cart"
-                  element={
-                    <ProtectedRoutes>
-                      <Cart />
-                    </ProtectedRoutes>
-                  }
-                />
-                <Route
-                  path="/login"
-                  element={
-                    <IsLoggedIn>
-                      <Login />
-                    </IsLoggedIn>
-                  }
-                />
-                <Route
-                  path="/signup"
-                  element={
-                    <IsLoggedIn>
-                      <Signup />
-                    </IsLoggedIn>
-                  }
-                />
-              </Routes>
-            </main>
-            <Footer />
+      <FilterProvider>
+        <Router>
+          <div className="App">
+            <div className="grid-container">
+              <Nav />
+              <main>
+                <Header />
+                <Routes>
+                  <Route path="/" element={<Home />} />
+                  <Route path="/books" element={<AllBooks />} />
+                  <Route path="/book/:id" element={<SingleBook />} />
+                  <Route path="/author/:id" element={<Author />} />
+                  <Route
+                    path="/account"
+                    element={
+                      <ProtectedRoutes>
+                        <User />
+                      </ProtectedRoutes>
+                    }
+                  />
+                  <Route
+                    path="/cart"
+                    element={
+                      <ProtectedRoutes>
+                        <Cart />
+                      </ProtectedRoutes>
+                    }
+                  />
+                  <Route
+                    path="/login"
+                    element={
+                      <IsLoggedIn>
+                        <Login />
+                      </IsLoggedIn>
+                    }
+                  />
+                  <Route
+                    path="/signup"
+                    element={
+                      <IsLoggedIn>
+                        <Signup />
+                      </IsLoggedIn>
+                    }
+                  />
+                </Routes>
+              </main>
+              <Footer />
+            </div>
           </div>
-        </div>
-      </Router>
+        </Router>
+      </FilterProvider>
     </AppProvider>
   );
 }

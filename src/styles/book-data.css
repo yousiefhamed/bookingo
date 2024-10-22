@@ -19,6 +19,7 @@
   box-shadow: var(--box-shadow);
   margin: 0 auto;
   position: relative;
+  border-radius: 10px;
 }
 
 .book-data-container .book-cover img {

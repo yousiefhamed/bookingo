@@ -1,23 +1,37 @@
-import React from "react";
-import "../styles/logout.css";
-import { useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
 import { useAppContext } from "../context/AppContext";
+import { logout } from "../hooks/useApi";
+import { useNavigate } from "react-router-dom";
+
+import "../styles/logout.css";
 
 const User = () => {
   const navigate = useNavigate();
-  const { setLoggedIn } = useAppContext();
+  const { setLoggedIn, setError } = useAppContext();
+  const [logoutStat, setLogoutStat] = useState(false);
 
-  const handleLogout = () => {
-    localStorage.removeItem("token");
-    localStorage.removeItem("userId");
-    setLoggedIn(false);
-    navigate("/");
-  };
+  useEffect(() => {
+    const handleLogout = async () => {
+      try {
+        const response = await logout();
+        if (response) {
+          setLoggedIn(false);
+          navigate("/");
+        }
+      } catch (error) {
+        setError(error);
+      }
+    };
+
+    if (logoutStat) {
+      handleLogout();
+    }
+  }, [logoutStat, navigate, setError, setLoggedIn]);
 
   return (
     <div className="user-container">
       <h2>User Profile</h2>
-      <button className="logout-button" onClick={handleLogout}>
+      <button className="logout-button" onClick={() => setLogoutStat(true)}>
         Logout
       </button>
     </div>
