@@ -13,7 +13,7 @@ const AllBooks = () => {
   const { filteredBooks, errorBooks, setGenres } = useFilterContext();
 
   useEffect(() => {
-    setGenres((prev) => [...prev, category]);
+    if (category) setGenres((prev) => [...prev, category]);
   }, [category, setGenres]);
 
   return (
