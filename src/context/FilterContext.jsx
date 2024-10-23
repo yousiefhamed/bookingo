@@ -20,7 +20,7 @@ export const FilterProvider = ({ children }) => {
   }, [books]);
 
   useEffect(() => {
-    const filteredBooks = books.filter((book) => {
+    const filteredBooks = books?.filter((book) => {
       const genreMatch =
         genres?.length > 1
           ? (genres?.length > 1 && genres?.includes(book.genre)) || false
@@ -41,7 +41,7 @@ export const FilterProvider = ({ children }) => {
     });
 
     setFilteredBooks(() => {
-      if (sortDir === "asc") {
+      if (books && sortDir === "asc") {
         if (sort === "title") {
           return filteredBooks.sort((a, b) =>
             a.title.localeCompare(b.title, undefined, {

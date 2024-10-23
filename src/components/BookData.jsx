@@ -26,7 +26,7 @@ const BookData = ({ book }) => {
       <div className="book-data-container">
         <div className="book-cover">
           <img src={coverImage} alt={`${title} cover`} />
-          {stock === false ? <p>Out of Stock</p> : ""}
+          {stock === 0 ? <p>Out of Stock</p> : ""}
         </div>
         <div className="book-details">
           <h1>{title}</h1>

@@ -13,9 +13,6 @@ export const AppProvider = ({ children }) => {
   const [books, setBooks] = useState([]);
   const [errorBooks, setErrorBooks] = useState(null);
 
-  const [cart, setCart] = useState([]);
-  const [wishlist, setWishlist] = useState([]);
-
   useEffect(() => {
     const storedToken = localStorage.getItem("token");
     const storedUserId = localStorage.getItem("userId");
@@ -23,6 +20,7 @@ export const AppProvider = ({ children }) => {
       setUser({ token: storedToken, userId: storedUserId });
       setLoading(false);
       setError(null);
+      setLoggedIn(true);
       return;
     }
     setUser(null);
@@ -53,10 +51,6 @@ export const AppProvider = ({ children }) => {
         setError,
         books,
         errorBooks,
-        cart,
-        setCart,
-        wishlist,
-        setWishlist,
       }}
     >
       {children}
