@@ -6,9 +6,11 @@ import "./../styles/book-data.css";
 import RecommendedBooks from "./RecommendedBooks";
 import { Link } from "react-router-dom";
 import { useAppContext } from "../context/AppContext";
+import { useWishlistContext } from "../context/WishlistContext";
 
 const BookData = ({ book }) => {
   const {
+    _id,
     coverImage,
     title,
     author,
@@ -20,6 +22,7 @@ const BookData = ({ book }) => {
   } = book;
 
   const { books } = useAppContext();
+  const { wishlist } = useWishlistContext();
 
   return (
     <>
@@ -40,8 +43,11 @@ const BookData = ({ book }) => {
           <p className="price">${price}</p>
           <p className="gray bottom">{description}</p>
           <div className="book-details-actions">
-            <AddToCartBtn handleClick={() => {}} disabled={!stock} />
-            <AddToWishlist handleClick={() => {}} />
+            <AddToCartBtn id={_id} disabled={!stock} />
+            <AddToWishlist
+              id={book._id}
+              isActive={wishlist.includes(book._id)}
+            />
           </div>
         </div>
       </div>
