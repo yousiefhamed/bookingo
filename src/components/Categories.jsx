@@ -1,50 +1,30 @@
 import "./../styles/categories.css";
 
-import fiction from "./../assets/categories/fiction.png";
-import history from "./../assets/categories/history.png";
-import science from "./../assets/categories/science.png";
-import biography from "./../assets/categories/biography.png";
-import adventure from "./../assets/categories/adventure.png";
-import business from "./../assets/categories/business.png";
-import psychology from "./../assets/categories/psychology.png";
-import healthcare from "./../assets/categories/healthcare.png";
 import Headeing from "./utils/Headeing";
 import { Link } from "react-router-dom";
 
 const Categories = () => {
   const categories = [
-    {
-      title: "fiction",
-      image: fiction,
-    },
-    {
-      title: "history",
-      image: history,
-    },
-    {
-      title: "science",
-      image: science,
-    },
-    {
-      title: "biography",
-      image: biography,
-    },
-    {
-      title: "adventure",
-      image: adventure,
-    },
-    {
-      title: "business",
-      image: business,
-    },
-    {
-      title: "psychology",
-      image: psychology,
-    },
-    {
-      title: "healthcare",
-      image: healthcare,
-    },
+    "Self-help",
+    "Personal Finance",
+    "Business",
+    "History",
+    "Memoir",
+    "Leadership",
+    "Spirituality",
+    "Psychology",
+    "Productivity",
+    "Fiction",
+    "Military Strategy",
+    "Creativity",
+    "Science Fiction",
+    "Classic",
+    "Dystopian",
+    "Post-apocalyptic",
+    "Non-fiction",
+    "True Crime",
+    "Negotiation",
+    "Biography",
   ];
 
   return (
@@ -53,12 +33,15 @@ const Categories = () => {
       <div className="categories-container">
         {categories.map((category) => (
           <Link
-            to={`/books?category=${category.title}`}
+            to={`/books?category=${category}`}
             className="category-card"
-            key={category.title}
+            key={category}
           >
-            <img src={category.image} alt={category.title} />
-            <h3>{category.title}</h3>
+            <img
+              src="https://cdn-icons-png.flaticon.com/512/207/207114.png"
+              alt={category}
+            />
+            <h3>{category}</h3>
           </Link>
         ))}
       </div>

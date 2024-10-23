@@ -3,9 +3,18 @@ import Book from "../components/BookCard";
 import Filter from "../components/Filter";
 
 import { useFilterContext } from "../context/FilterContext";
+import { useSearchParams } from "react-router-dom";
+import { useEffect } from "react";
 
 const AllBooks = () => {
-  const { filteredBooks, errorBooks } = useFilterContext();
+  const [URLSearchParams] = useSearchParams();
+  const category = URLSearchParams.get("category");
+
+  const { filteredBooks, errorBooks, setGenres } = useFilterContext();
+
+  useEffect(() => {
+    setGenres((prev) => [...prev, category]);
+  }, [category, setGenres]);
 
   return (
     <section className="popular-books">
