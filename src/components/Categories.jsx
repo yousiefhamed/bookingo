@@ -38,7 +38,7 @@ const Categories = () => {
             key={category}
           >
             <img
-              src="https://cdn-icons-png.flaticon.com/512/207/207114.png"
+              src="https://png.pngtree.com/png-vector/20230318/ourmid/pngtree-reading-books-icon-vector-png-image_6653519.png"
               alt={category}
             />
             <h3>{category}</h3>
