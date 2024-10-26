@@ -83,7 +83,7 @@ export const WishlistProvider = ({ children }) => {
     try {
       const response = await removeFromWishlist(user.userId, productId);
       setWishlist((prev) => prev.filter((id) => id !== productId));
-      return response.message;
+      return response;
     } catch (err) {
       setErrorWishlist("Error removing from wishlist:", err);
     }

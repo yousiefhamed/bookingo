@@ -1,0 +1,136 @@
+.error-display {
+  position: fixed;
+  top: 100px;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  z-index: 9999;
+  gap: 10px;
+  margin-right: 20px;
+}
+
+@keyframes fadeIn {
+  0% {
+    transform: translateX(-1000px);
+    opacity: 0;
+  }
+  5% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  95% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(-1000px);
+    opacity: 0;
+  }
+}
+
+.error-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 15px 20px;
+  border-top-right-radius: 30px;
+  border-bottom-right-radius: 30px;
+  background-color: var(--white);
+  box-shadow: var(--box-shadow);
+  animation: fadeIn 5s ease-in-out;
+  transition: all 0.3s ease-in-out;
+  transform: translateX(-1000px);
+  opacity: 0;
+  position: relative;
+}
+
+.error-container span {
+  margin-right: 10px;
+  font-size: 1.5rem;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 5px;
+  background-color: var(--white);
+}
+
+.error-container p {
+  font-size: 1.3rem;
+  font-weight: 600;
+}
+
+.error-container.success {
+  border-block: 5px solid var(--teal-green);
+  border-right: 2px solid var(--teal-green);
+}
+
+.error-container.success span {
+  color: var(--teal-green);
+  border: 3px solid var(--teal-green);
+}
+
+.error-container.success p {
+  color: var(--teal-green);
+}
+
+.error-container.danger {
+  border-block: 5px solid var(--danger);
+  border-right: 2px solid var(--danger);
+}
+
+.error-container.danger span {
+  color: var(--danger);
+  border: 3px solid var(--danger);
+}
+
+.error-container.danger p {
+  color: var(--danger);
+}
+
+.error-container.warning {
+  border-block: 5px solid orange;
+  border-right: 2px solid orange;
+}
+
+.error-container.warning span {
+  color: orange;
+  border: 3px solid orange;
+}
+.error-container.warning p {
+  color: orange;
+}
+
+@keyframes progress {
+  0% {
+    width: 100%;
+  }
+  100% {
+    width: 0;
+  }
+}
+
+.error-container .progress-bar {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 5px;
+  animation: progress 5s linear forwards;
+}
+
+.error-container.success .progress-bar {
+  background-color: var(--teal-green);
+}
+
+.error-container.danger .progress-bar {
+  background-color: var(--danger);
+}
+
+.error-container.warning .progress-bar {
+  background-color: orange;
+}

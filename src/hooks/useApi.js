@@ -12,9 +12,9 @@ export const register = async (data) => {
       localStorage.setItem("userId", response.data.user._id);
       return true;
     }
-    return "Something went wrong";
+    throw new Error("Something went wrong");
   } catch (error) {
-    return error.message;
+    throw new Error(error.message);
   }
 };
 
@@ -30,9 +30,9 @@ export const login = async (data) => {
       localStorage.setItem("userId", response.data.user._id);
       return true;
     }
-    return "Something went wrong";
+    throw new Error("Something went wrong");
   } catch (error) {
-    return error.message;
+    throw new Error(error.message);
   }
 };
 
@@ -43,9 +43,9 @@ export const logout = async () => {
       localStorage.removeItem("userId");
       return true;
     }
-    return "Something went wrong";
+    throw new Error("Something went wrong");
   } catch (error) {
-    return "Something went wrong";
+    throw new Error("Something went wrong");
   }
 };
 
@@ -57,10 +57,9 @@ export const getBooks = async () => {
     if (response?.data) {
       return response.data;
     }
-
-    return "Something went wrong";
+    throw new Error("Something went wrong");
   } catch (error) {
-    return error.message;
+    throw new Error(error.message);
   }
 };
 
@@ -72,9 +71,9 @@ export const getBook = async (id) => {
     if (response?.data) {
       return response.data;
     }
-    return "Something went wrong";
+    throw new Error("Something went wrong");
   } catch (error) {
-    return error.message;
+    throw new Error(error.message);
   }
 };
 
@@ -97,9 +96,9 @@ const fetchWithAuth = async (url, method, data) => {
     if (response.data) {
       return response.data;
     }
-    return "Something went wrong";
+    throw new Error("Something went wrong");
   } catch (error) {
-    return error.message;
+    throw new Error(error.message);
   }
 };
 
@@ -113,9 +112,9 @@ export const getCart = async (userId, data) => {
     if (response) {
       return response;
     }
-    return "Something went wrong";
+    throw new Error("Something went wrong");
   } catch (error) {
-    return error.message;
+    throw new Error(error.message);
   }
 };
 
@@ -129,9 +128,9 @@ export const addToCart = async (userId, data) => {
     if (response) {
       return response;
     }
-    return "Something went wrong";
+    throw new Error("Something went wrong");
   } catch (error) {
-    return error.message;
+    throw new Error(error.message);
   }
 };
 
@@ -145,9 +144,9 @@ export const decreaseCart = async (userId, data) => {
     if (response) {
       return response;
     }
-    return "Something went wrong";
+    throw new Error("Something went wrong");
   } catch (error) {
-    return error.message;
+    throw new Error(error.message);
   }
 };
 
@@ -161,9 +160,9 @@ export const getWishllist = async (userId, data) => {
     if (response) {
       return response;
     }
-    return "Something went wrong";
+    throw new Error("Something went wrong");
   } catch (error) {
-    return error.message;
+    throw new Error(error.message);
   }
 };
 
@@ -177,9 +176,9 @@ export const addToWishlist = async (userId, data) => {
     if (response) {
       return response;
     }
-    return "Something went wrong";
+    throw new Error("Something went wrong");
   } catch (error) {
-    return error.message;
+    throw new Error(error.message);
   }
 };
 
@@ -192,8 +191,8 @@ export const removeFromWishlist = async (userId, productId) => {
     if (response) {
       return response;
     }
-    return "Something went wrong";
+    throw new Error("Something went wrong");
   } catch (error) {
-    return error.message;
+    throw new Error(error.message);
   }
 };

@@ -4,7 +4,7 @@ import "./../../styles/rating.css";
 
 const Rating = ({ overallRating }) => {
   return (
-    <div className="rating">
+    <span className="rating">
       {Array.from({ length: 5 }).map((_, index) =>
         overallRating - index > 0 && overallRating - index < 1 ? (
           <svg
@@ -53,7 +53,8 @@ const Rating = ({ overallRating }) => {
           />
         )
       )}
-    </div>
+      <span style={{ fontSize: "12px", color: "#666" }}>({overallRating})</span>
+    </span>
   );
 };
 

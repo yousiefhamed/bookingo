@@ -10,6 +10,7 @@ const Book = ({ book }) => {
 
   return (
     <Link to={`/book/${book._id}`} className="book">
+      {book.stock === 0 && <p className="book-stock">Out of Stock</p>}
       <img src={book.coverImage} alt={book.title} />
       <h3>{book.title}</h3>
       <p>{book.author}</p>

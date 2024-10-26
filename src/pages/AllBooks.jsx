@@ -5,8 +5,11 @@ import Filter from "../components/Filter";
 import { useFilterContext } from "../context/FilterContext";
 import { useSearchParams } from "react-router-dom";
 import { useEffect } from "react";
+import { useErrorContext } from "../context/ErrorContext";
 
 const AllBooks = () => {
+  const { setMessages } = useErrorContext();
+
   const [URLSearchParams] = useSearchParams();
   const category = URLSearchParams.get("category");
 
@@ -15,6 +18,15 @@ const AllBooks = () => {
   useEffect(() => {
     if (category) setGenres((prev) => [...prev, category]);
   }, [category, setGenres]);
+
+  useEffect(() => {
+    if (errorBooks) {
+      setMessages((prev) => [
+        ...prev,
+        { type: "danger", message: errorBooks, time: Date.now() },
+      ]);
+    }
+  }, [errorBooks, setMessages]);
 
   return (
     <section className="popular-books">

@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { FaHome, FaShoppingCart, FaUser } from "react-icons/fa";
 import { ImBooks } from "react-icons/im";
@@ -7,14 +6,10 @@ import logo from "./../assets/logo.png";
 import "./../styles/nav.css";
 
 function Nav() {
-  const handleMenuClick = () => {
+  const handleMenuClick = (e) => {
     const menu = document.querySelector(".nav-links");
     menu.classList.toggle("active");
   };
-
-  useEffect(() => {
-    return () => {};
-  }, []);
 
   return (
     <nav className="navbar">

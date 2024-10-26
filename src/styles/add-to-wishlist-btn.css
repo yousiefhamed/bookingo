@@ -29,3 +29,30 @@
 .add-to-wishlist-btn.active {
   color: var(--danger);
 }
+
+.add-to-wishlist-btn[disabled] {
+  cursor: not-allowed;
+}
+
+.add-to-wishlist-btn[disabled]:hover {
+  opacity: 0.3;
+  transform: scale(1);
+}
+
+.add-to-wishlist-btn[disabled]:active {
+  opacity: 0.3;
+  transform: scale(1);
+}
+
+.add-to-wishlist-btn[disabled] .loader {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

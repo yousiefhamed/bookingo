@@ -73,7 +73,7 @@ export const CartProvider = ({ children }) => {
       if (response.cart.products) {
         setCart(response.cart.products);
         setErrorCart(null);
-        return;
+        return "Product added successfully";
       }
       setErrorCart("Error adding to cart:", response);
     } catch (error) {

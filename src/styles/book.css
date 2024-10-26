@@ -19,10 +19,24 @@
   transition: var(--transition);
   padding: 10px;
   border: 1px solid var(--light-gray);
+  position: relative;
 }
 
-.book:hover {
-  transform: scale(1.05);
+.book .book-stock {
+  width: fit-content;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 16px;
+  font-weight: 700;
+  background-color: var(--danger);
+  color: var(--white);
+  padding: 2px 5px;
+  border-radius: 4px;
+  position: absolute;
+  top: 25px;
+  right: -20px;
+  transform: rotate(45deg);
 }
 
 .book img {

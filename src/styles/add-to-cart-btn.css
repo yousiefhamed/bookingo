@@ -40,3 +40,16 @@
   opacity: 0.3;
   transform: scale(1);
 }
+
+.add-to-cart-btn[disabled] .loader {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

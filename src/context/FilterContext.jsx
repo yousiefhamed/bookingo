@@ -11,34 +11,39 @@ export const FilterProvider = ({ children }) => {
   const [sort, setSort] = useState("title");
   const [sortDir, setSortDir] = useState("asc");
 
-  const { books, errorBooks } = useAppContext();
+  const { books, loadingBooks, errorBooks } = useAppContext();
 
-  const [filteredBooks, setFilteredBooks] = useState(books);
-
-  useEffect(() => {
-    setFilteredBooks(books);
-  }, [books]);
+  const [filteredBooks, setFilteredBooks] = useState([]);
 
   useEffect(() => {
-    const filteredBooks = books?.filter((book) => {
-      const genreMatch =
-        genres?.length > 1
-          ? (genres?.length > 1 && genres?.includes(book.genre)) || false
-          : true;
-      const ratingMatch =
-        rating?.length > 1 ? rating?.includes(Math.floor(book.rating)) : true;
-      const priceMatch =
-        Math.min(Number(prices[0]), Number(prices[1])) !== 0 ||
-        Math.max(Number(prices[0]), Number(prices[1])) !== 100
-          ? book.price > Math.min(Number(prices[0]), Number(prices[1])) &&
-            book.price < Math.max(Number(prices[0]), Number(prices[1]))
-          : true;
-      const titleMatch = book.title
-        .toLowerCase()
-        .includes(search?.toLowerCase() || "");
+    setFilteredBooks(books && !loadingBooks && !errorBooks ? books : []);
+  }, [books, errorBooks, loadingBooks]);
 
-      return genreMatch && ratingMatch && priceMatch && titleMatch;
-    });
+  useEffect(() => {
+    const filteredBooks =
+      books.length && !loadingBooks && !errorBooks
+        ? books?.filter((book) => {
+            const genreMatch =
+              genres?.length > 1
+                ? (genres?.length > 1 && genres?.includes(book.genre)) || false
+                : true;
+            const ratingMatch =
+              rating?.length > 1
+                ? rating?.includes(Math.floor(book.rating))
+                : true;
+            const priceMatch =
+              Math.min(Number(prices[0]), Number(prices[1])) !== 0 ||
+              Math.max(Number(prices[0]), Number(prices[1])) !== 100
+                ? book.price > Math.min(Number(prices[0]), Number(prices[1])) &&
+                  book.price < Math.max(Number(prices[0]), Number(prices[1]))
+                : true;
+            const titleMatch = book.title
+              .toLowerCase()
+              .includes(search?.toLowerCase() || "");
+
+            return genreMatch && ratingMatch && priceMatch && titleMatch;
+          })
+        : [];
 
     setFilteredBooks(() => {
       if (books && sortDir === "asc") {
@@ -67,7 +72,18 @@ export const FilterProvider = ({ children }) => {
         }
       }
     });
-  }, [books, genres, prices, rating, search, setFilteredBooks, sort, sortDir]);
+  }, [
+    books,
+    errorBooks,
+    genres,
+    loadingBooks,
+    prices,
+    rating,
+    search,
+    setFilteredBooks,
+    sort,
+    sortDir,
+  ]);
 
   return (
     <FilterContext.Provider

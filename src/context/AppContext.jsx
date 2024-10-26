@@ -11,6 +11,7 @@ export const AppProvider = ({ children }) => {
   const [error, setError] = useState(null);
 
   const [books, setBooks] = useState([]);
+  const [loadingBooks, setLoadingBooks] = useState(true);
   const [errorBooks, setErrorBooks] = useState(null);
 
   useEffect(() => {
@@ -25,6 +26,7 @@ export const AppProvider = ({ children }) => {
     }
     setUser(null);
     setLoading(false);
+    setError(null);
     return;
   }, [loggedIn]);
 
@@ -32,9 +34,18 @@ export const AppProvider = ({ children }) => {
     const fetchBooks = async () => {
       try {
         const response = await getBooks();
-        setBooks(response);
-      } catch (error) {
-        setErrorBooks(error);
+        if (response) {
+          setBooks(response);
+          setErrorBooks(null);
+          return response;
+        }
+        setErrorBooks("Something went wrong");
+        return;
+      } catch (err) {
+        setErrorBooks(`${err}`);
+        return;
+      } finally {
+        setLoadingBooks(false);
       }
     };
     fetchBooks();
@@ -50,6 +61,7 @@ export const AppProvider = ({ children }) => {
         error,
         setError,
         books,
+        loadingBooks,
         errorBooks,
       }}
     >
